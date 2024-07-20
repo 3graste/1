@@ -1,0 +1,42 @@
+import threading
+from random import randint
+
+class BankAccount:
+    def __init__(self, balance=0):
+        self.balance = balance
+        self.lock = threading.Lock()
+
+    def deposit(self, amount):
+        with self.lock:
+            self.balance += amount
+            print(f"Deposited {amount}, new balance is {self.balance}")
+
+    def withdraw(self, amount):
+        with self.lock:
+            if self.balance >= amount:
+                self.balance -= amount
+                print(f"Withdrawn {amount}, new balance is {self.balance}")
+            else:
+                print("Insufficient funds")
+
+bank_account = BankAccount()
+
+def deposit_thread():
+    for _ in range(10):
+        bank_account.deposit(randint(1, 10))
+
+def withdraw_thread():
+    for _ in range(10):
+        bank_account.withdraw(randint(1, 10))
+
+
+t1 = threading.Thread(target=deposit_thread)
+t2 = threading.Thread(target=withdraw_thread)
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+
+print("Final balance:", bank_account.balance)
