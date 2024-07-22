@@ -3,11 +3,7 @@ second = ['Строка', 'Урбан', 'Компьютер']
 
 first_result = [len(a) - len(b) for a, b in zip(first, second) if len(a) > len(b)]
 
-first_lengths = [len(item) for item in first]
-
-second_lengths = [len(item) for item in second]
-
-second_result = [first_lengths[i] == second_lengths[i] for i in range(len(first_lengths))]
+second_result = [len(first[i]) == len(second[i]) for i in range(min(len(first), len(second)))]
 
 print(first_result)
 print(second_result)
