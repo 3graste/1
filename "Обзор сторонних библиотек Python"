@@ -1,0 +1,66 @@
+import numpy as np
+
+array = np.array([1, 2, 3, 4, 5])
+print(array)
+
+
+array = np.array([1, 2, 3, 4, 5])
+sum = np.sum(array)
+print(f"Сумма элементов: {sum}")
+mean = np.mean(array)
+print(f"Среднее значение: {mean}")
+std = np.std(array)
+print(f"Стандартное отклонение: {std}")
+
+
+array = np.array([1, 2, 3, 4, 5])
+print(f"Первый элемент: {array[0]}")
+print(f"Элементы с 2-го по 4-й: {array[1:4]}")
+array[0] = 10
+print(f"Измененный массив: {array}")
+
+
+
+
+import requests
+
+url = "https://api.github.com/users/octocat/repos"
+response = requests.get(url)
+if response.status_code == 200:
+    data = response.json()
+    print(data)
+else:
+    print(f"Ошибка: {response.status_code}")
+
+
+
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+plt.plot(x, y)
+plt.xlabel("X-ось")
+plt.ylabel("Y-ось")
+plt.title("Линейный график")
+plt.show()
+
+
+
+import numpy as np
+
+data = np.random.randn(1000)
+plt.hist(data, bins=20)
+plt.xlabel("Значения")
+plt.ylabel("Частота")
+plt.title("Гистограмма")
+plt.show()
+
+
+
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+plt.scatter(x, y)
+plt.xlabel("X-ось")
+plt.ylabel("Y-ось")
+plt.title("Точечный график")
+plt.show()
