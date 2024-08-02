@@ -1,0 +1,42 @@
+def introspection_info(obj):
+
+    info = {}
+    info['Тип объекта'] = type(obj)
+
+    attributes = [attr for attr in dir(obj) if not attr.startswith("__")]
+    info['Атрибуты'] = attributes
+
+    methods = [method for method in dir(obj) if callable(getattr(obj, method)) and not method.startswith("__")]
+    info['Методы'] = methods
+
+
+    try:
+        info['Модуль'] = obj.__module__
+    except AttributeError:
+        info['Модуль'] = 'Неизвестно'
+
+    if isinstance(obj, (list, tuple, dict)):
+        info['Длина'] = len(obj)
+
+    if isinstance(obj, str):
+        info['Длина строки'] = len(obj)
+
+    return info
+
+
+class MyClass:
+    def __init__(self, name):
+        self.name = name
+
+    def greet(self):
+        print(f"Привет, {self.name}!")
+
+
+my_object = MyClass(80)
+
+object_info = introspection_info(my_object)
+print(object_info)
+
+
+number_info = introspection_info('гриб')
+print(number_info)
