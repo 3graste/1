@@ -1,8 +1,8 @@
-import threading
+import multiprocessing
 
 class WarehouseManager:
     def __init__(self):
-        self.data = {}
+        self.data = multiprocessing.Manager().dict()
 
     def process_request(self, request):
         action, product, quantity = request
@@ -12,25 +12,24 @@ class WarehouseManager:
             else:
                 self.data[product] = quantity
         elif action == 'shipment':
-            if product in self.data and self.data[product] > 0:
+            if product in self.data and self.data[product] >= quantity:
                 self.data[product] -= quantity
 
     def run(self, requests):
-        for request in requests:
-            process = threading.Thread(target=self.process_request, args=(request,))
-            process.start()
-            process.join()
+        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+            pool.map(self.process_request, requests)
 
-warehouse = WarehouseManager()
+if __name__ == '__main__':
+    warehouse = WarehouseManager()
 
-requests = [
-    ('receipt', 'apple', 10),
-    ('receipt', 'banana', 5),
-    ('shipment', 'apple', 3),
-    ('shipment', 'orange', 2),
-    ('receipt', 'orange', 8),
-]
+    requests = [
+        ('receipt', 'apple', 10),
+        ('receipt', 'banana', 5),
+        ('shipment', 'apple', 3),
+        ('shipment', 'orange', 2),
+        ('receipt', 'orange', 8),
+    ]
 
-warehouse.run(requests)
+    warehouse.run(requests)
 
-print(warehouse.data)
+    print(warehouse.data)
