@@ -23,11 +23,11 @@ if __name__ == '__main__':
     warehouse = WarehouseManager()
 
     requests = [
-        ('receipt', 'apple', 10),
-        ('receipt', 'banana', 5),
-        ('shipment', 'apple', 3),
-        ('shipment', 'orange', 2),
-        ('receipt', 'orange', 8),
+        ('receipt', 'product1', 100),
+        ('receipt', 'product2', 150),
+        ('shipment', 'product1', 30),
+        ('receipt', 'product3', 200),
+        ('shipment', 'product2', 50),
     ]
 
     warehouse.run(requests)
