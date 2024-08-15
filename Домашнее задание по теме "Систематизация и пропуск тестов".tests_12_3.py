@@ -47,10 +47,3 @@ class TournamentTest(unittest.TestCase):
         # Тест 3
         pass
 
-# Описание объекта TestSuite
-suite = unittest.TestSuite()
-
-# Добавление тестов в TestSuit
-suite.addTest(unittest.TestLoader().loadTestsFromTestCase(RunnerTest))
-suite.addTest(unittest.TestLoader().loadTestsFromTestCase(TournamentTest))
-
