@@ -1,0 +1,27 @@
+from aiogram import Bot, Dispatcher, executor, types
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+import asyncio
+
+api = ""
+bot = Bot(token=api)
+dp = Dispatcher(bot, storage= MemoryStorage())
+
+welcome_sent = False
+
+@dp.message_handler(commands=['start'])
+async def start(message: types.Message):
+    global welcome_sent
+    if not welcome_sent:
+        welcome_text = ("Хэй!")
+        await message.reply(welcome_text)
+        await message.answer("Привет! Я бот помогающий твоему здоровью.")
+        welcome_sent = True
+
+@dp.message_handler(content_types=types.ContentTypes.TEXT)
+async def all_messages(message: types.Message):
+    await message.answer('Введите команду /start, чтобы начать общение.')
+
+
+
+if __name__ == "__main__":
+    executor.start_polling(dp, skip_updates=True)
