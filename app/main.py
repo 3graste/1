@@ -12,3 +12,12 @@ async def welcome():
 
 app.include_router(user.router)
 app.include_router(task.router)
+
+from db import engine
+from models import Base
+
+# Создаем все таблицы в базе данных
+Base.metadata.create_all(bind=engine)
+
+# Выводим SQL-запросы
+print(Base.metadata.create_all(bind=engine))
